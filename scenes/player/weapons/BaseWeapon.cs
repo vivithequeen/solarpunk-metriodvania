@@ -9,30 +9,23 @@ public partial class BaseWeapon : Node
 	public String WeaponName = "PlaceHolderName";
 
 	[Export]
-	public int DefaultSpawnBullets;
+	public int DefaultSpawnBullets = 0;
 
 	[Export]
-	public int NormalAttachmentSlots;
+	public int NormalAttachmentSlots = 0;
 
 	[Export]
-	public int SpecialAttachmentSlots;
+	public int SpecialAttachmentSlots = 0;
 
 	[Export]
-	public Texture2D UITexture; // x by y
+	public Texture2D UITexture = null; // x by y
 
-	private int SpawnBullets;
-	private int BulletSpeed;
-	private int BulletSpread;
+	private int SpawnBullets = 0;
+	private int BulletSpeed = 0;
+	private int BulletSpread = 0;
 	
-	public override void _Ready()
-	{
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-
-	}
+	[Export]
+	NormalAttachment[] AttachedAttachments;
 	public void ShowDebugInformation()
     {
 		ImGui.SeparatorText(WeaponName);
@@ -40,5 +33,13 @@ public partial class BaseWeapon : Node
 		ImGui.Text("NormalAttachmentSlots: " + NormalAttachmentSlots.ToString());
 		ImGui.Text("SpecialAttachmentSlots: " + SpecialAttachmentSlots.ToString());
 
+		foreach (NormalAttachment a in AttachedAttachments)
+		{
+            if (ImGui.TreeNode(a.AttachmentName))
+            {
+				a.ShowDebugInformation();
+				ImGui.TreePop();
+            }
+		}
     }
 }

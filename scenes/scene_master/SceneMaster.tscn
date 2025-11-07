@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://lmys08b0qavk"]
+[gd_scene load_steps=5 format=3 uid="uid://lmys08b0qavk"]
 
 [ext_resource type="Script" uid="uid://bgc1njrta7ykh" path="res://scenes/scene_master/SceneMaster.cs" id="1_jjxy7"]
 [ext_resource type="PackedScene" uid="uid://cv3lm84dffnpp" path="res://scenes/player/weapons/WeaponManager.tscn" id="2_qfvom"]
 [ext_resource type="Script" uid="uid://yu0yyxh7mjw4" path="res://scenes/player/weapons/BaseWeapon.cs" id="3_7056n"]
+[ext_resource type="Script" uid="uid://dkrb1c367grs3" path="res://scenes/player/weapons/NormalAttachment.cs" id="4_pq705"]
 
 [node name="SceneMaster" type="Node"]
 script = ExtResource("1_jjxy7")
@@ -10,10 +11,17 @@ script = ExtResource("1_jjxy7")
 [node name="WeaponManager" parent="." node_paths=PackedStringArray("CurrentWeapons") instance=ExtResource("2_qfvom")]
 CurrentWeapons = [NodePath("../BaseWeapon")]
 
-[node name="BaseWeapon" type="Node" parent="."]
+[node name="BaseWeapon" type="Node" parent="." node_paths=PackedStringArray("AttachedAttachments")]
 script = ExtResource("3_7056n")
 WeaponName = "Pistol"
 DefaultSpawnBullets = 1
 NormalAttachmentSlots = 2
 SpecialAttachmentSlots = 1
+AttachedAttachments = [NodePath("../NormalAttachment")]
 metadata/_custom_type_script = "uid://yu0yyxh7mjw4"
+
+[node name="NormalAttachment" type="Node" parent="."]
+script = ExtResource("4_pq705")
+AttachmentName = "gay ass barrel"
+Attachment = 1
+metadata/_custom_type_script = "uid://dkrb1c367grs3"

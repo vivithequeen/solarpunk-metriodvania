@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv3lm84dffnpp"]
+
+[ext_resource type="Script" uid="uid://d31vxpya1ukbs" path="res://Game/player/weapons/WeaponManager.cs" id="1_rdgd3"]
+[ext_resource type="Script" uid="uid://yu0yyxh7mjw4" path="res://Game/player/weapons/BaseWeapon.cs" id="2_16a0y"]
+
+[node name="WeaponManager" type="Node" node_paths=PackedStringArray("CurrentWeapons")]
+script = ExtResource("1_rdgd3")
+CurrentWeapons = []
+
+[node name="BaseWeapon" type="Node" parent="."]
+script = ExtResource("2_16a0y")
+metadata/_custom_type_script = "uid://yu0yyxh7mjw4"

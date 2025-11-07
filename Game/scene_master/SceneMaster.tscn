@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://lmys08b0qavk"]
+
+[ext_resource type="Script" uid="uid://bgc1njrta7ykh" path="res://Game/scene_master/SceneMaster.cs" id="1_jjxy7"]
+[ext_resource type="PackedScene" uid="uid://dmmox0tg8ap5x" path="res://Game/Level.tscn" id="2_44vio"]
+
+[node name="SceneMaster" type="Node"]
+script = ExtResource("1_jjxy7")
+
+[node name="Node2D" parent="." instance=ExtResource("2_44vio")]

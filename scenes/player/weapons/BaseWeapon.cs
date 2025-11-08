@@ -8,56 +8,209 @@ public partial class BaseWeapon : Node
 {
 	[Export]
 	public String WeaponName = "PlaceHolderName";
+	[Export]
+	public int DefaultDamage = 0;
 
+	[Export]
+	public float DefaultRange = 0;
+	[Export]
+	public float DefaultReloadSpeed = 0;
 	[Export]
 	public int DefaultSpawnBullets = 0;
+	[Export]
+	public float DefaultBulletSpeed = 0;
 
 	[Export]
-	public int NormalAttachmentSlots = 0;
+	public float DefaultBulletSpread = 0;
 
 	[Export]
-	public int SpecialAttachmentSlots = 0;
+	public float DefaultKickback = 0;
+	[Export]
+	public float DefaultMagaznineSize = 0;
+
 
 	[Export]
 	public Texture2D UITexture = null; // x by y
 
-	[Export]
-	public bool HasMagaznineSlot = false;
 
-	[Export]
-	public bool HasBarrelSlot = false;
+	[Export(PropertyHint.Range, "0,5,")]
+	public int MagaznineSlots = 0;
+	[Export(PropertyHint.Range, "0,5,")]
+	public int BarrelSlots = 0;
+	[Export(PropertyHint.Range, "0,5,")]
+	public int GripSlots = 0;
+	[Export(PropertyHint.Range, "0,5,")]
+	public int StockSlots = 0;
 
-	[Export]
-	public bool HasGripSlot = false;
-
-	[Export]
-	public bool HasStockSlot = false;
-
+	private int Damage = 0;
+	private float Range = 0;
+	private float ReloadSpeed = 0;
 	private int SpawnBullets = 0;
-	private int BulletSpeed = 0;
-	private int BulletSpread = 0;
+	private float BulletSpeed = 0;
+	private float BulletSpread = 0;
+	private float Kickback = 0;
 
-	
-	
-	public Array<NormalAttachment> AttachedAttachments = new Array<NormalAttachment>();
+	private float MagaznineSize = 0;
+
+
+
+
+	public Array<NormalAttachment> MagaznineAttachments = new Array<NormalAttachment>();
+	public Array<NormalAttachment> BarrelAttachments = new Array<NormalAttachment>();
+	public Array<NormalAttachment> GripAttachments = new Array<NormalAttachment>();
+	public Array<NormalAttachment> StockAttachments = new Array<NormalAttachment>();
 	public override void _Ready()
-    {
-        AttachedAttachments.Add(GetNode<NormalAttachment>("NormalAttachment"));
-    }
-	public void ShowDebugInformation()
-    {
-		ImGui.SeparatorText(WeaponName);
-		ImGui.Text("DefaultSpawnBullets: " + DefaultSpawnBullets.ToString());
-		ImGui.Text("NormalAttachmentSlots: " + NormalAttachmentSlots.ToString());
-		ImGui.Text("SpecialAttachmentSlots: " + SpecialAttachmentSlots.ToString());
+	{
+		MagaznineAttachments.Add(GetNode<NormalAttachment>("NormalAttachment"));
+	}
 
-		foreach (NormalAttachment a in AttachedAttachments)
+	private void CalculateAttributes()
+	{
+		float DamageMutiplyer = 0;
+		float RangeMutiplyer = 0;
+		float ReloadSpeedMutiplyer = 0;
+		int SpawnBulletsAddition = 0;
+		float BulletSpeedMutiplyer = 0;
+		float BulletMutiplyer = 0;
+		float KickbackMutiplyer = 0;
+		int MagaznineSizeAddition = 0;
+
+		foreach (NormalAttachment m in MagaznineAttachments)
 		{
-            if (ImGui.TreeNode(a.AttachmentName))
-            {
-				a.ShowDebugInformation();
-				ImGui.TreePop();
-            }
+			DamageMutiplyer += m.DamagePercentIncrease;
+			RangeMutiplyer += m.RangePercentIncrease;
+			ReloadSpeedMutiplyer += m.ReloadPercentIncrease;
+			SpawnBulletsAddition += m.SpawnBulletsAddition;
+			BulletSpeedMutiplyer += m.BulletSpeedPercentIncrease;
+			BulletMutiplyer += m.BulletSpreadPercentIncrease;
+			KickbackMutiplyer += m.KickbackPercentIncrease;
+			MagaznineSizeAddition += m.MagaznineSizeAddition;
 		}
-    }
+		foreach (NormalAttachment m in BarrelAttachments)
+		{
+			DamageMutiplyer += m.DamagePercentIncrease;
+			RangeMutiplyer += m.RangePercentIncrease;
+			ReloadSpeedMutiplyer += m.ReloadPercentIncrease;
+			SpawnBulletsAddition += m.SpawnBulletsAddition;
+			BulletSpeedMutiplyer += m.BulletSpeedPercentIncrease;
+			BulletMutiplyer += m.BulletSpreadPercentIncrease;
+			KickbackMutiplyer += m.KickbackPercentIncrease;
+			MagaznineSizeAddition += m.MagaznineSizeAddition;
+		}
+		foreach (NormalAttachment m in GripAttachments)
+		{
+			DamageMutiplyer += m.DamagePercentIncrease;
+			RangeMutiplyer += m.RangePercentIncrease;
+			ReloadSpeedMutiplyer += m.ReloadPercentIncrease;
+			SpawnBulletsAddition += m.SpawnBulletsAddition;
+			BulletSpeedMutiplyer += m.BulletSpeedPercentIncrease;
+			BulletMutiplyer += m.BulletSpreadPercentIncrease;
+			KickbackMutiplyer += m.KickbackPercentIncrease;
+			MagaznineSizeAddition += m.MagaznineSizeAddition;
+		}
+		foreach (NormalAttachment m in StockAttachments)
+		{
+			DamageMutiplyer += m.DamagePercentIncrease;
+			RangeMutiplyer += m.RangePercentIncrease;
+			ReloadSpeedMutiplyer += m.ReloadPercentIncrease;
+			SpawnBulletsAddition += m.SpawnBulletsAddition;
+			BulletSpeedMutiplyer += m.BulletSpeedPercentIncrease;
+			BulletMutiplyer += m.BulletSpreadPercentIncrease;
+			KickbackMutiplyer += m.KickbackPercentIncrease;
+			MagaznineSizeAddition += m.MagaznineSizeAddition;
+		}
+
+		Damage = (int)(DefaultDamage * DamageMutiplyer);
+		Range = DefaultRange * RangeMutiplyer;
+		ReloadSpeed = DefaultReloadSpeed * ReloadSpeedMutiplyer;
+		
+		SpawnBullets = DefaultSpawnBullets + SpawnBulletsAddition;
+		BulletSpeed = DefaultBulletSpeed * BulletSpeedMutiplyer;
+		BulletSpread = DefaultBulletSpread * BulletMutiplyer;
+		Kickback = DefaultKickback * KickbackMutiplyer;
+		MagaznineSize = DefaultMagaznineSize + MagaznineSizeAddition;
+	}
+	public void ShowDebugInformation()
+	{
+		ImGui.SeparatorText(WeaponName);
+		ImGui.Text("===CURRENT===");
+		ImGui.Text("Damage:"  + Damage.ToString());
+		ImGui.Text("Range:"  + Range.ToString());
+		ImGui.Text("ReloadSpeed:"  + ReloadSpeed.ToString());
+		ImGui.Text("SpawnBullets: " + SpawnBullets.ToString());
+		ImGui.Text("BulletSpeed: " + BulletSpeed.ToString());
+		ImGui.Text("BulletSpread: " + BulletSpread.ToString());
+		ImGui.Text("Kickback: " + Kickback.ToString());
+		ImGui.Text("MagaznineSize: " + MagaznineSize.ToString());
+		
+		if (ImGui.Button("Update"))
+		{
+			CalculateAttributes();
+		}
+
+		ImGui.Text("===DEFAULTS===");
+		ImGui.Text("DefaultDamage:"  + DefaultDamage.ToString());
+		ImGui.Text("DefaultRange:"  + DefaultRange.ToString());
+		ImGui.Text("DefaultReloadSpeed:"  + DefaultReloadSpeed.ToString());
+		ImGui.Text("DefaultSpawnBullets: " + DefaultSpawnBullets.ToString());
+		ImGui.Text("DefaultBulletSpeed: " + DefaultBulletSpeed.ToString());
+		ImGui.Text("DefaultBulletSpread: " + DefaultBulletSpread.ToString());
+		ImGui.Text("DefaultKickback: " + DefaultKickback.ToString()); 
+		ImGui.Text("DefaultMagaznineSize: " + DefaultMagaznineSize.ToString());
+
+		ImGui.Text("===ATTACHMENTS===");
+		if (ImGui.CollapsingHeader("MagaznineSlots - " + MagaznineSlots))
+		{
+			foreach (NormalAttachment m in MagaznineAttachments)
+			{
+				if (ImGui.TreeNode(m.AttachmentName))
+				{
+					m.ShowDebugInformation();
+					ImGui.TreePop();
+				}
+			}
+
+
+		}
+		if (ImGui.CollapsingHeader("BarrelSlots - " + BarrelSlots))
+		{
+			foreach (NormalAttachment m in BarrelAttachments)
+			{
+				if (ImGui.TreeNode(m.AttachmentName))
+				{
+					m.ShowDebugInformation();
+					ImGui.TreePop();
+				}
+			}
+
+
+		}
+		if (ImGui.CollapsingHeader("GripSlots - " + GripSlots))
+		{
+			foreach (NormalAttachment m in GripAttachments)
+			{
+				if (ImGui.TreeNode(m.AttachmentName))
+				{
+					m.ShowDebugInformation();
+					ImGui.TreePop();
+				}
+			}
+
+
+		}
+		if (ImGui.CollapsingHeader("StockSlots - " + StockSlots))
+		{
+			foreach (NormalAttachment m in StockAttachments)
+			{
+				if (ImGui.TreeNode(m.AttachmentName))
+				{
+					m.ShowDebugInformation();
+					ImGui.TreePop();
+				}
+			}
+
+
+		}
+	}
+
 }

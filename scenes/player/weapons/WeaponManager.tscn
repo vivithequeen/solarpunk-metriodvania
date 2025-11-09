@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cv3lm84dffnpp"]
+[gd_scene load_steps=5 format=3 uid="uid://cv3lm84dffnpp"]
 
 [ext_resource type="Script" uid="uid://d31vxpya1ukbs" path="res://scenes/player/weapons/WeaponManager.cs" id="1_rdgd3"]
 [ext_resource type="Script" uid="uid://yu0yyxh7mjw4" path="res://scenes/player/weapons/BaseWeapon.cs" id="2_16a0y"]
 [ext_resource type="Script" uid="uid://dkrb1c367grs3" path="res://scenes/player/weapons/NormalAttachment.cs" id="3_jwsyc"]
+[ext_resource type="Script" uid="uid://dtcfsnrs5q1k" path="res://scenes/player/weapons/AttachmentHolder.cs" id="4_xofbg"]
 
 [node name="WeaponManager" type="Node"]
 script = ExtResource("1_rdgd3")
@@ -11,13 +12,10 @@ script = ExtResource("1_rdgd3")
 script = ExtResource("2_16a0y")
 WeaponName = "Super cool noob shotgun"
 DefaultDamage = 12
-DefaultRange = 10
 DefaultReloadSpeed = 0.25
 DefaultSpawnBullets = 6
-DefaultBulletSpeed = 3
-DefaultBulletSpread = 3
 DefaultKickback = 0.1
-MagaznineSlots = 2
+MagaznineSlots = 3
 BarrelSlots = 2
 GripSlots = 1
 StockSlots = 1
@@ -26,4 +24,22 @@ metadata/_custom_type_script = "uid://yu0yyxh7mjw4"
 [node name="NormalAttachment" type="Node" parent="BaseWeapon"]
 script = ExtResource("3_jwsyc")
 AttachmentName = "gay ass mag"
+metadata/_custom_type_script = "uid://dkrb1c367grs3"
+
+[node name="AttachmentHolder" type="Node" parent="."]
+script = ExtResource("4_xofbg")
+metadata/_custom_type_script = "uid://dtcfsnrs5q1k"
+
+[node name="NormalAttachment" type="Node" parent="AttachmentHolder"]
+script = ExtResource("3_jwsyc")
+AttachmentName = "meow!"
+Attachment = 3
+DamagePercentIncrease = 1.225
+RangePercentIncrease = 0.826
+ReloadPercentIncrease = 1.354
+SpawnBulletsAddition = -1
+BulletSpeedPercentIncrease = 1.373
+BulletSpreadPercentIncrease = 0.749
+KickbackPercentIncrease = 1.412
+MagaznineSizeAddition = 3
 metadata/_custom_type_script = "uid://dkrb1c367grs3"

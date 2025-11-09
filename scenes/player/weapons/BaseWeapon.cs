@@ -62,6 +62,7 @@ public partial class BaseWeapon : Node
 	public override void _Ready()
 	{
 		MagaznineAttachments.Add(GetNode<NormalAttachment>("NormalAttachment"));
+		CalculateAttributes();
 	}
 
 	private void CalculateAttributes()
@@ -123,13 +124,39 @@ public partial class BaseWeapon : Node
 		Damage = (int)(DefaultDamage * DamageMutiplyer);
 		Range = DefaultRange * RangeMutiplyer;
 		ReloadSpeed = DefaultReloadSpeed * ReloadSpeedMutiplyer;
-		
+
 		SpawnBullets = DefaultSpawnBullets + SpawnBulletsAddition;
 		BulletSpeed = DefaultBulletSpeed * BulletSpeedMutiplyer;
 		BulletSpread = DefaultBulletSpread * BulletMutiplyer;
 		Kickback = DefaultKickback * KickbackMutiplyer;
 		MagaznineSize = DefaultMagaznineSize + MagaznineSizeAddition;
 	}
+	
+	private void ShowAttachmentInformation(Array<NormalAttachment> Attachments, int AttachmentsSlots, String name)
+    {
+        if (ImGui.CollapsingHeader(name+" - " + AttachmentsSlots))
+		{
+			int c = 0;
+
+			foreach (NormalAttachment m in Attachments)
+			{
+				c++;
+				if (ImGui.TreeNode(m.AttachmentName))
+				{
+					m.ShowDebugInformation();
+					ImGui.TreePop();
+				}
+			}
+			for(int i = c; i < AttachmentsSlots; i++)
+			{
+				ImGui.PushID(i);
+				ImGui.Button("Drag " + name + " here");
+				ImGui.PopID();
+            }
+
+
+		}
+    }
 	public void ShowDebugInformation()
 	{
 		ImGui.SeparatorText(WeaponName);
@@ -159,58 +186,11 @@ public partial class BaseWeapon : Node
 		ImGui.Text("DefaultMagaznineSize: " + DefaultMagaznineSize.ToString());
 
 		ImGui.Text("===ATTACHMENTS===");
-		if (ImGui.CollapsingHeader("MagaznineSlots - " + MagaznineSlots))
-		{
-			foreach (NormalAttachment m in MagaznineAttachments)
-			{
-				if (ImGui.TreeNode(m.AttachmentName))
-				{
-					m.ShowDebugInformation();
-					ImGui.TreePop();
-				}
-			}
+		ShowAttachmentInformation(MagaznineAttachments, MagaznineSlots, "MagaznineAttachments");
+		ShowAttachmentInformation(BarrelAttachments, BarrelSlots, "BarrelAttachments");
+		ShowAttachmentInformation(GripAttachments,GripSlots,"GripAttachments");
+		ShowAttachmentInformation(StockAttachments,StockSlots,"StockAttachments");
 
-
-		}
-		if (ImGui.CollapsingHeader("BarrelSlots - " + BarrelSlots))
-		{
-			foreach (NormalAttachment m in BarrelAttachments)
-			{
-				if (ImGui.TreeNode(m.AttachmentName))
-				{
-					m.ShowDebugInformation();
-					ImGui.TreePop();
-				}
-			}
-
-
-		}
-		if (ImGui.CollapsingHeader("GripSlots - " + GripSlots))
-		{
-			foreach (NormalAttachment m in GripAttachments)
-			{
-				if (ImGui.TreeNode(m.AttachmentName))
-				{
-					m.ShowDebugInformation();
-					ImGui.TreePop();
-				}
-			}
-
-
-		}
-		if (ImGui.CollapsingHeader("StockSlots - " + StockSlots))
-		{
-			foreach (NormalAttachment m in StockAttachments)
-			{
-				if (ImGui.TreeNode(m.AttachmentName))
-				{
-					m.ShowDebugInformation();
-					ImGui.TreePop();
-				}
-			}
-
-
-		}
 	}
 
 }

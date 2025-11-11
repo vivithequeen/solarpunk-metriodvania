@@ -20,14 +20,14 @@ public partial class Movement : CharacterBody2D
 		if (!IsOnFloor())
 		{
 			velocity.Y += Gravity * (float)delta;
-			Acceleration = 80f;
+			
 		}
 		else
 		{
 			inJump = false;
 			velocity.Y = 0; // Reset Y velocity when grounded
 			timeSinceJump = 0;
-			Acceleration = 80f;
+			
 		}
 		if (IsOnCeiling())
 		{
@@ -36,25 +36,18 @@ public partial class Movement : CharacterBody2D
 		}
 
 		// Get input for horizontal movement
-		if (Math.Abs(speed) < MaxSpeed && Input.IsActionPressed("Right"))
+		if (Input.IsActionPressed("Right"))
 		{
-			speed += Acceleration;
+			speed = MaxSpeed;
 		}
-		else if (Math.Abs(speed) < MaxSpeed && Input.IsActionPressed("Left"))
+		else if (Input.IsActionPressed("Left"))
 		{
-			speed -= Acceleration;
+			speed = -MaxSpeed;
 		}
-		else
-		{
-			if (speed > 0)
-			{
-				speed -= Acceleration;
-			}
-			else if (speed < 0)
-			{
-				speed += Acceleration;
-			}
-		}
+        else
+        {
+			speed = 0;
+        }
 
 		velocity.X = speed;
 

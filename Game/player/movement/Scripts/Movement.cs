@@ -44,10 +44,10 @@ public partial class Movement : CharacterBody2D
 		{
 			speed = -MaxSpeed;
 		}
-        else
-        {
+		else
+		{
 			speed = 0;
-        }
+		}
 
 		velocity.X = speed;
 
@@ -55,9 +55,13 @@ public partial class Movement : CharacterBody2D
 		if (inJump == false && timeSinceJump <= 0.25 && Input.IsActionPressed("Jump"))
 		{
 			timeSinceJump += delta;
-			if (timeSinceJump <= 0.1)
+			if (timeSinceJump <= 0.03)
 			{
-				velocity.Y -= 190;
+				velocity.Y -= 400;
+			}
+			else if (timeSinceJump <= 0.1)
+			{
+				velocity.Y -= 220;
 			}
 			velocity.Y -= JumpForce;
 		}

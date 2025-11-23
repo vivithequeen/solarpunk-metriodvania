@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dmmox0tg8ap5x"]
 
 [ext_resource type="Texture2D" uid="uid://c7wtkv2t4fxpo" path="res://Extra stuff/icon.svg" id="1_e47t8"]
-[ext_resource type="PackedScene" uid="uid://d2fudyaneu3vs" path="res://Game/player/movement/character.tscn" id="2_ej41o"]
+[ext_resource type="PackedScene" uid="uid://d2fudyaneu3vs" path="res://Game/player/character.tscn" id="2_ej41o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ej41o"]
 size = Vector2(128, 128)
@@ -9,6 +9,7 @@ size = Vector2(128, 128)
 [node name="Node2D" type="Node2D"]
 
 [node name="Node2D" parent="." instance=ExtResource("2_ej41o")]
+JumpForce = 75.0
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(203, 325)

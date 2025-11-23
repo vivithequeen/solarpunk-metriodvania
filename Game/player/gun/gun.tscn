@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3q0fdaxsriky"]
+
+[ext_resource type="Script" uid="uid://bqwx582jnun6" path="res://Game/player/gun/Gun.cs" id="1_x0hcx"]
+[ext_resource type="Texture2D" uid="uid://br47hl0oqlupx" path="res://Game/player/Sprites/gun_placeholder.png" id="2_x0hcx"]
+
+[node name="Gun" type="Node2D" node_paths=PackedStringArray("GunSprite")]
+script = ExtResource("1_x0hcx")
+GunSprite = NodePath("gun")
+
+[node name="gun" type="Sprite2D" parent="."]
+position = Vector2(16, 0)
+scale = Vector2(4, 4)
+texture = ExtResource("2_x0hcx")

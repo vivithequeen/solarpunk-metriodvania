@@ -23,8 +23,10 @@ public partial class Movement : CharacterBody2D
 		_animPlayer = GetNode<AnimatedSprite2D>("Player");
 	}
 
-	public override void _PhysicsProcess(double delta)
+	public override void _Process(double delta)
 	{
+		var gunAncor = GetNode<Node2D>("gun_ancor");
+		gunAncor.Position = new Vector2(45 * (Velocity.X > 0 ? 1 : -1), gunAncor.Position.Y);
 		if (IsOnCeiling())
 		{
 			inJump = true;
@@ -90,18 +92,18 @@ public partial class Movement : CharacterBody2D
 			timeSinceJump += delta;
 			if (timeSinceJump <= 0.03)
 			{
-				velocity.Y -= 400;
+				velocity.Y -= 400 * (float)delta * 60;
 			}
 			else if (timeSinceJump <= 0.1)
 			{
-				velocity.Y -= 220;
+				velocity.Y -= 220 * (float)delta * 60;
 			}
-			velocity.Y -= JumpForce;
+			velocity.Y -= JumpForce * (float)delta * 60;
 		}
 		else if (inJump == false && timeSinceJump <= 0.25 && Input.IsActionJustReleased("Jump"))
 		{
 			inJump = true;
-			velocity.Y += 600;
+			velocity.Y += 600 * (float)delta * 60;
 		}
 
 		if (velocity.Y >= 2000)

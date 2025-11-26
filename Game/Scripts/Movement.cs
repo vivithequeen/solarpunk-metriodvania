@@ -126,7 +126,6 @@ public partial class Movement : CharacterBody2D
 			}
 
 			_colider.Scale /= 1.5f;
-			inJump = true;
 			inSlide = true;
 			_animPlayer.Play("Sliding");
         }
@@ -138,7 +137,7 @@ public partial class Movement : CharacterBody2D
 		velocity.X = speed;
 
 		// Jumping
-		if (inJump == false && timeSinceJump <= 0.25 && Input.IsActionPressed("Jump"))
+		if (!inJump && timeSinceJump <= 0.25 && Input.IsActionPressed("Jump"))
 		{
 			_animPlayer.Play("Jumping_up");
 			timeSinceJump += delta;
@@ -152,7 +151,7 @@ public partial class Movement : CharacterBody2D
 			}
 			velocity.Y -= JumpForce * (float)delta * 60;
 		}
-		else if (inJump == false && timeSinceJump <= 0.25 && Input.IsActionJustReleased("Jump"))
+		else if (!inJump && timeSinceJump <= 0.25 && Input.IsActionJustReleased("Jump"))
 		{
 			inJump = true;
 			velocity.Y += 600 * (float)delta * 60;

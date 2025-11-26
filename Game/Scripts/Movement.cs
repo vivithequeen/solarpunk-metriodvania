@@ -15,6 +15,7 @@ public partial class Movement : CharacterBody2D
 	double timeSinceJump = 0;
 	float speed = 0;
 	bool inJump = false;
+	bool inSlide = false;
 
 	private Vector2 velocity = Vector2.Zero;
 	private AnimatedSprite2D _animPlayer;
@@ -60,31 +61,34 @@ public partial class Movement : CharacterBody2D
 			velocity.Y = 10;
 		}
 
-		// Get input for horizontal movement
-		if (Input.IsActionPressed("Right"))
+		if (!inSlide)
 		{
-			speed = MaxSpeed;
-			_animPlayer.FlipH = false;
-			if (inJump == false)
+			// Get input for horizontal movement
+			if (Input.IsActionPressed("Right"))
 			{
-				_animPlayer.Play("Running");
+				speed = MaxSpeed;
+				_animPlayer.FlipH = false;
+				if (inJump == false)
+				{
+					_animPlayer.Play("Running");
+				}
 			}
-		}
-		else if (Input.IsActionPressed("Left"))
-		{
-			speed = -MaxSpeed;
-			_animPlayer.FlipH = true;
-			if (inJump == false)
+			else if (Input.IsActionPressed("Left"))
 			{
-				_animPlayer.Play("Running");
+				speed = -MaxSpeed;
+				_animPlayer.FlipH = true;
+				if (inJump == false)
+				{
+					_animPlayer.Play("Running");
+				}
 			}
-		}
-		else
-		{
-			speed = 0;
-			if (inJump == false)
+			else
 			{
-				_animPlayer.Play("Idling");
+				speed = 0;
+				if (inJump == false)
+				{
+					_animPlayer.Play("Idling");
+				}
 			}
 		}
 
@@ -123,8 +127,13 @@ public partial class Movement : CharacterBody2D
 
 			_colider.Scale /= 1.5f;
 			inJump = true;
+			inSlide = true;
 			_animPlayer.Play("Sliding");
         }
+		if (Input.IsActionJustReleased("Down"))
+		{
+			inSlide = false;
+		}
 
 		velocity.X = speed;
 

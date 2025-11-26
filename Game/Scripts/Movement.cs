@@ -20,7 +20,8 @@ public partial class Movement : CharacterBody2D
 	private Vector2 velocity = Vector2.Zero;
 	private AnimatedSprite2D _animPlayer;
 	private CollisionShape2D _colider;
-	private Area2D _arm_ancor;
+	private Area2D _arm_top_ancor;
+	private Area2D _arm_bottom_ancor;
 
 	// returns true when a surface exists within GroundTolerance pixels below the player
 	private bool IsNearFloor(float tolerance)
@@ -44,7 +45,8 @@ public partial class Movement : CharacterBody2D
 		// Get the AnimationPlayer node
 		_animPlayer = GetNode<AnimatedSprite2D>("Player");
 		_colider = GetNode<CollisionShape2D>("Colider");
-		_arm_ancor = GetNode<Area2D>("arm_ancor");
+		_arm_top_ancor = GetNode<Area2D>("arm_top_ancor");
+		_arm_bottom_ancor = GetNode<Area2D>("arm_bottom_ancor");
 	}
 
 	public override void _Process(double delta)

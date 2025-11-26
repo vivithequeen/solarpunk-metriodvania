@@ -94,13 +94,19 @@ position = Vector2(45, -86)
 
 [node name="Gun" parent="gun_ancor" instance=ExtResource("6_bltua")]
 
-[node name="arm_ancor" type="Area2D" parent="gun_ancor"]
+[node name="arm_top_ancor" type="Area2D" parent="gun_ancor"]
 position = Vector2(-45, 86)
 
-[node name="arm_top" type="CollisionShape2D" parent="gun_ancor/arm_ancor"]
+[node name="arm_top" type="CollisionShape2D" parent="gun_ancor/arm_top_ancor"]
 position = Vector2(61, -95)
 shape = SubResource("RectangleShape2D_t24ja")
 
-[node name="arm_bottom" type="CollisionShape2D" parent="gun_ancor/arm_ancor"]
+[node name="arm_bottom_ancor" type="Area2D" parent="gun_ancor"]
+position = Vector2(-45, 86)
+
+[node name="arm_bottom" type="CollisionShape2D" parent="gun_ancor/arm_bottom_ancor"]
 position = Vector2(61, -71.5)
 shape = SubResource("RectangleShape2D_oum1e")
+
+[connection signal="body_entered" from="gun_ancor/arm_top_ancor" to="." method="_on_arm_top_ancor_body_entered"]
+[connection signal="body_entered" from="gun_ancor/arm_bottom_ancor" to="." method="_on_arm_bottom_ancor_body_entered"]

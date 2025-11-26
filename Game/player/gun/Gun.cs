@@ -14,11 +14,10 @@ public partial class Gun : Node2D
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
-    {
-        Rotation = (GetGlobalMousePosition() - GlobalPosition).Angle();
+	{
+		Rotation = (GetGlobalMousePosition() - GlobalPosition).Angle();
 
-        GunSprite.FlipV = !(Rotation < Math.PI / 2 && Rotation > Math.PI / -2);
-		GD.Print(Rotation);
+		GunSprite.FlipV = !(Rotation < Math.PI / 2 && Rotation > Math.PI / -2);
 
-    }
+	}
 }

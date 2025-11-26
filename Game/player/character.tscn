@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d2fudyaneu3vs"]
+[gd_scene load_steps=12 format=3 uid="uid://d2fudyaneu3vs"]
 
 [ext_resource type="Script" uid="uid://cdmpdlbpxoxu2" path="res://Game/Scripts/Movement.cs" id="1_mbf5e"]
 [ext_resource type="Texture2D" uid="uid://bj4p5ooxb5k5n" path="res://Game/player/Sprites/Run_2.png" id="2_bltua"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bgg7qrl1xobwx" path="res://Game/player/Sprites/Run_3.png" id="4_oum1e"]
 [ext_resource type="Texture2D" uid="uid://vp2i8eyi6aoc" path="res://Game/player/Sprites/Run_1.png" id="5_r25bj"]
 [ext_resource type="PackedScene" uid="uid://b3q0fdaxsriky" path="res://Game/player/gun/gun.tscn" id="6_bltua"]
+[ext_resource type="Texture2D" uid="uid://drhu814g2g2ua" path="res://Game/player/Sprites/Slide_1.png" id="6_t24ja"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wfnr8"]
 size = Vector2(110, 214)
@@ -52,30 +53,54 @@ animations = [{
 "loop": true,
 "name": &"Running",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_t24ja")
+}],
+"loop": true,
+"name": &"Sliding",
+"speed": 5.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t24ja"]
+size = Vector2(92, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oum1e"]
+size = Vector2(92, 30)
 
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_mbf5e")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -44)
+[node name="Colider" type="CollisionShape2D" parent="."]
+position = Vector2(-5, -44)
 shape = SubResource("RectangleShape2D_wfnr8")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -48)
+position = Vector2(-5, -48)
 zoom = Vector2(0.8, 0.8)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 rotation_smoothing_enabled = true
 
 [node name="Player" type="AnimatedSprite2D" parent="."]
-position = Vector2(-11, -43.999996)
+position = Vector2(-5, -43.999996)
 scale = Vector2(1.4726027, 1.4726027)
 sprite_frames = SubResource("SpriteFrames_lsyqo")
-animation = &"Running"
-frame_progress = 0.57070947
+animation = &"Idling"
 
 [node name="gun_ancor" type="Node2D" parent="."]
 position = Vector2(45, -86)
 
 [node name="Gun" parent="gun_ancor" instance=ExtResource("6_bltua")]
+
+[node name="arm_ancor" type="Area2D" parent="gun_ancor"]
+position = Vector2(-45, 86)
+
+[node name="arm_top" type="CollisionShape2D" parent="gun_ancor/arm_ancor"]
+position = Vector2(61, -95)
+shape = SubResource("RectangleShape2D_t24ja")
+
+[node name="arm_bottom" type="CollisionShape2D" parent="gun_ancor/arm_ancor"]
+position = Vector2(61, -71.5)
+shape = SubResource("RectangleShape2D_oum1e")

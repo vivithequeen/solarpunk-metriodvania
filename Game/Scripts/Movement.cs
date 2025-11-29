@@ -52,11 +52,11 @@ public partial class Movement : CharacterBody2D
 	public override void _Process(double delta)
 	{
 		_colider.Scale = new Vector2(1, 1);
-		var gunAncor = GetNode<Node2D>("gun_ancor");
-		if (Velocity.X != 0)
-		{
-			gunAncor.Position = new Vector2(45 * (Velocity.X > 0 ? 1 : -1), gunAncor.Position.Y);
-		}
+		//var gunAncor = GetNode<Node2D>("gun_ancor");
+		//if (Velocity.X != 0)
+		//{
+		//	gunAncor.Position = new Vector2(45 * (Velocity.X > 0 ? 1 : -1), gunAncor.Position.Y);
+		//}
 		if (IsOnCeiling())
 		{
 			inJump = true;

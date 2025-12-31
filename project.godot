@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="weapon_test"
-run/main_scene="uid://lmys08b0qavk"
+run/main_scene="uid://dmmox0tg8ap5x"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="res://Extra stuff/icon.svg"
 

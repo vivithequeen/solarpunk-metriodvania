@@ -23,7 +23,7 @@ joint_data/1/bone_index = 1
 joint_data/1/bone2d_node = NodePath("")
 joint_data/1/rotate_from_joint = false
 joint_data/1/enable_constraint = true
-joint_data/1/constraint_angle_min = 84.99999
+joint_data/1/constraint_angle_min = 84.999985
 joint_data/1/constraint_angle_max = 274.99997
 joint_data/1/constraint_angle_invert = true
 joint_data/1/constraint_in_localspace = true
@@ -34,8 +34,8 @@ bone_index = 2
 bone2d_node = NodePath("arm_top/arm_bottom/arm_wrist")
 target_nodepath = NodePath("../../../IK Targets/target/target_lookat")
 enable_constraint = true
-constraint_angle_min = 249.99998
-constraint_angle_max = 109.99999
+constraint_angle_min = 249.99997
+constraint_angle_max = 109.999985
 constraint_angle_invert = true
 constraint_in_localspace = true
 
@@ -53,23 +53,23 @@ modifications/1 = SubResource("SkeletonModification2DLookAt_tmm45")
 [node name="body" type="Node2D" parent="CharacterContainer"]
 
 [node name="top" type="Sprite2D" parent="CharacterContainer/body"]
-rotation = -0.307319
-scale = Vector2(9.937958, 53.749226)
+rotation = -0.46306163
+scale = Vector2(9.937994, 53.749397)
 texture = SubResource("CanvasTexture_xolnt")
 offset = Vector2(0.005244136, 0.42167073)
 
 [node name="bottom" type="Sprite2D" parent="CharacterContainer/body"]
-position = Vector2(15.428387, 48.612186)
-rotation = 0.1841801
-scale = Vector2(70.19314, 8.465803)
+position = Vector2(22.782564, 45.63157)
+rotation = -0.3220446
+scale = Vector2(70.19318, 8.465782)
 texture = SubResource("CanvasTexture_xolnt")
 offset = Vector2(0.42293274, 0.024518304)
 
 [node name="wrist" type="Sprite2D" parent="CharacterContainer/body"]
 z_index = 99
-position = Vector2(77.99994, 61.99999)
-rotation = 0.061670657
-scale = Vector2(24.085142, 9.815077)
+position = Vector2(83.99997, 27.000008)
+rotation = 0.68807036
+scale = Vector2(24.08513, 9.815154)
 texture = SubResource("CanvasTexture_xolnt")
 offset = Vector2(0.41334623, 0.0032482147)
 
@@ -91,22 +91,22 @@ script = null
 modification_stack = SubResource("SkeletonModificationStack2D_i37yh")
 
 [node name="arm_top" type="Bone2D" parent="CharacterContainer/bones/Skeleton2D"]
-rotation = -0.18323882
-scale = Vector2(0.9999163, 0.9999163)
+rotation = -1.1517999
+scale = Vector2(0.99991626, 0.99991626)
 rest = Transform2D(1, 0, 0, 1, 0, 0)
 metadata/_local_pose_override_enabled_ = true
 
 [node name="arm_bottom" type="Bone2D" parent="CharacterContainer/bones/Skeleton2D/arm_top"]
-position = Vector2(0.00016593933, 51.00708)
-rotation = 1.3962634
+position = Vector2(0.00016212463, 51.00708)
+rotation = 1.2907417
 scale = Vector2(0.99992704, 0.99992704)
 rest = Transform2D(-4.371139e-08, 1, -1, -4.371139e-08, 0, 51)
 metadata/_local_pose_override_enabled_ = true
 
 [node name="arm_wrist" type="Bone2D" parent="CharacterContainer/bones/Skeleton2D/arm_top/arm_bottom"]
-position = Vector2(63.977367, 1.7022543)
-rotation = 0.09219682
-scale = Vector2(1.000001, 1.000001)
+position = Vector2(63.977367, 1.7022552)
+rotation = -0.62640035
+scale = Vector2(1.0000011, 1.0000011)
 rest = Transform2D(-4.371139e-08, -1, 1, -4.371139e-08, 63.977352, 1.7022499)
 metadata/_local_pose_override_enabled_ = true
 
@@ -126,7 +126,7 @@ update_scale = false
 [node name="IK Targets" type="Node2D" parent="."]
 
 [node name="target" type="Node2D" parent="IK Targets"]
-position = Vector2(78, 62)
+position = Vector2(84, 27)
 script = ExtResource("3_tmm45")
 
 [node name="target_lookat" type="Node2D" parent="IK Targets/target"]
